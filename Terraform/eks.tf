@@ -1,32 +1,38 @@
-module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
-  version         = "20.35.0"
+resource "aws_eks_cluster" "aws_eks" {
+  name     = "eks_cluster_levelup"
+  role_arn = aws_iam_role.eks_cluster.arn
 
-  cluster_name    = "cmm-poc-eks"
-  cluster_version = "1.32"
-  subnet_ids      = ["subnet-0c09df98ebc8819fa"]
-  vpc_id          = "vpc-063273428bad6e1f0"
-
-  enable_irsa                      = true
-  cluster_endpoint_private_access = true
-  cluster_endpoint_public_access  = false
-  cluster_enabled_log_types       = ["api", "scheduler", "controllerManager"]
-
-  eks_managed_node_groups = {
-    frontend = {
-      instance_types = ["t3.medium"]
-      min_size       = 1
-      max_size       = 2
-      desired_size   = 1
-      subnet_ids     =["subnet-0c09df98ebc8819fa"]
-      ami_type       = "AL2_x86_64"
-    }
-
+  vpc_config {
+    subnet_ids = module.vpc.public_subnets
   }
 
+  depends_on = [
+    aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,  
+    aws_iam_role_policy_attachment.AmazonEKSServicePolicy,
+  ]
+
   tags = {
-    Environment = "dev"
-    Terraform     = "True"
+    Name = "EKS_Cluster_LevelUp"
   }
 }
 
+resource "aws_eks_node_group" "node" {
+  cluster_name    = aws_eks_cluster.aws_eks.name
+  node_group_name = "node_levelup"
+  node_role_arn   = aws_iam_role.eks_nodes.arn
+  subnet_ids      = module.vpc.private_subnets
+
+  scaling_config {
+    desired_size = 1
+    max_size     = 1
+    min_size     = 1
+  }
+
+  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
+  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
+  depends_on = [
+    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
+  ]
+}
