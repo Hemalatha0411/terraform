@@ -55,3 +55,9 @@
 │    2: resource "helm_release" "alb_ingress_controller" {
 │
 
+ Error: Kubernetes cluster unreachable: Get "https://B344A8EED59FF34172C829679C7D6591.gr7.us-east-1.eks.amazonaws.com/version": dial tcp 10.244.42.176:443: i/o timeout
+│
+│   with helm_release.alb_ingress_controller,
+│   on add-on.tf line 2, in resource "helm_release" "alb_ingress_controller":
+│    2: resource "helm_release" "alb_ingress_controller" {
+
