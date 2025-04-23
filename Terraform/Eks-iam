@@ -1,0 +1,27 @@
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "20.36.0"
+
+  cluster_name    = "cmm-poc"
+  cluster_version = "1.32"
+  ...
+
+  manage_aws_auth_configmap = true
+
+  aws_auth_users = [
+    {
+      userarn  = "arn:aws:iam::123456789012:user/your-user-name"  # <-- Replace this
+      username = "your-user-name"
+      groups   = ["system:masters"]
+    }
+  ]
+
+  # Optional: for role-based access
+  aws_auth_roles = [
+    {
+      rolearn  = "arn:aws:iam::123456789012:role/YourRoleName"  # <-- Replace this if needed
+      username = "eks-admin-role"
+      groups   = ["system:masters"]
+    }
+  ]
+}
