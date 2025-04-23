@@ -1,0 +1,46 @@
+│ Warning: Argument is deprecated
+│
+│   with aws_iam_role.eks_cluster_role,
+│   on iam.tf line 14, in resource "aws_iam_role" "eks_cluster_role":
+│   14:   managed_policy_arns = [
+│   15:     "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+│   16:   ]
+│
+│ managed_policy_arns is deprecated. Use the aws_iam_role_policy_attachment resource instead. If Terraform should exclusively manage all managed policy
+│ attachments (the current behavior of this argument), use the aws_iam_role_policy_attachments_exclusive resource as well.
+│
+│ (and one more similar warning elsewhere)
+ (and one more similar warning elsewhere)
+╵
+╷
+│ Error: updating Security Group (sg-0a6f7b3479f4863eb) egress rules: updating rules: from_port (53) and to_port (53) must both be 0 to use the 'ALL' "-1" protocol!
+│
+│   with aws_security_group.eks_nodes,
+│   on eks.tf line 76, in resource "aws_security_group" "eks_nodes":
+│   76: resource "aws_security_group" "eks_nodes" {
+│
+╵
+╷
+│ Error: creating IAM Role (eksClusterRole): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 7eec2dbd-a112-4938-afeb-982afc4ee117, EntityAlreadyExists: Role with name eksClusterRole already exists.
+│
+│   with aws_iam_role.eks_cluster_role,
+│   on iam.tf line 11, in resource "aws_iam_role" "eks_cluster_role":
+│   11: resource "aws_iam_role" "eks_cluster_role" {
+│
+╵
+╷
+│ Error: creating KMS Alias (alias/eks/cmm-poc-demo): operation error KMS: CreateAlias, https response error StatusCode: 400, RequestID: 89c5cf09-24d4-4d20-9073-1885bd3b7cd9, AlreadyExistsException: An alias with the name arn:aws:kms:us-east-1:863518427890:alias/eks/cmm-poc-demo already exists
+│
+│   with module.eks.module.kms.aws_kms_alias.this["cluster"],
+│   on .terraform/modules/eks.kms/main.tf line 452, in resource "aws_kms_alias" "this":
+│  452: resource "aws_kms_alias" "this" {
+│
+╵
+╷
+│ Error: creating CloudWatch Logs Log Group (/aws/eks/cmm-poc-demo/cluster): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 31b13e3a-7e7b-405e-8d9f-9904042ba397, ResourceAlreadyExistsException: The specified log group already exists
+│
+│   with module.eks.aws_cloudwatch_log_group.this[0],
+│   on .terraform/modules/eks/main.tf line 203, in resource "aws_cloudwatch_log_group" "this":
+│  203: resource "aws_cloudwatch_log_group" "this" {
+│
+╵
