@@ -59,5 +59,8 @@
 │
 │   with helm_release.alb_ingress_controller,
 │   on add-on.tf line 2, in resource "helm_release" "alb_ingress_controller":
-│    2: resource "helm_release" "alb_ingress_controller" {
+│    2: resource "helm_release" "alb_ingress_controller" 
 
+------------------
+our current IAM principal doesn't have access to Kubernetes objects on this cluster.
+This might be due to the current principal not having an IAM access entry with permissions to access the cluster.
