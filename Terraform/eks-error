@@ -43,4 +43,15 @@
 │   on .terraform/modules/eks/main.tf line 203, in resource "aws_cloudwatch_log_group" "this":
 │  203: resource "aws_cloudwatch_log_group" "this" {
 │
-╵
+
+
+-----------------
+
+
+ Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
+│
+│   with helm_release.alb_ingress_controller,
+│   on add-on.tf line 2, in resource "helm_release" "alb_ingress_controller":
+│    2: resource "helm_release" "alb_ingress_controller" {
+│
+
