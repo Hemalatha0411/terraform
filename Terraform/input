@@ -1,0 +1,17 @@
+Infra Setup:
+
+EKS cluster:
+
+I have created EKS cluster with 3 node groups(Frontend App,Backend App,GPU) ,required Add-ons , acess entry and enable auto scaling
+
+S3 bucket:
+
+I have created three private s3 buckect with encyption,versioning,Life cycle policy
+
+Aurora Serverless PostgreSQL:
+
+I have created Aurora Serverless PostgreSQL v2 & enable autoscaling
+
+Aws secret manager:
+
+I have created secret for DB credentials
