@@ -19,6 +19,26 @@
 │   on eks.tf line 76, in resource "aws_security_group" "eks_nodes":
 │   76: resource "aws_security_group" "eks_nodes" {
 │
+
+
+
+-------------
+ Error: Unsupported argument
+│
+│   on aurora.tf line 13, in module "aurora":
+│   13:   create_random_password = false
+│
+│ An argument named "create_random_password" is not expected here.
+╵
+╷
+│ Error: Unsupported argument
+│
+│   on aurora.tf line 31, in module "aurora":
+│   31:   allowed_security_groups = [module.eks_node_sg.security_group_id]
+│
+│ An argument named "allowed_security_groups" is not expected here.
+╵
+
 ╵
 ╷
 │ Error: creating IAM Role (eksClusterRole): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 7eec2dbd-a112-4938-afeb-982afc4ee117, EntityAlreadyExists: Role with name eksClusterRole already exists.
