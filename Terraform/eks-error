@@ -107,3 +107,131 @@ This might be due to the current principal not having an IAM access entry with p
 │   with module.aurora.aws_db_subnet_group.this[0],
 │   on .terraform/modules/aurora/main.tf line 25, in resource "aws_db_subnet_group" "this":
 │   25: resource "aws_db_subnet_group" "this" {
+
+
+----------------
+│ Warning: Argument is deprecated
+│
+│   with aws_iam_role.eks_cluster_role,
+│   on iam.tf line 14, in resource "aws_iam_role" "eks_cluster_role":
+│   14:   managed_policy_arns = [
+│   15:     "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+│   16:   ]
+│
+│ managed_policy_arns is deprecated. Use the aws_iam_role_policy_attachment resource instead. If Terraform should exclusively manage all managed policy
+│ attachments (the current behavior of this argument), use the aws_iam_role_policy_attachments_exclusive resource as well.
+│
+│ (and one more similar warning elsewhere)
+ (and one more similar warning elsewhere)
+╵
+╷
+│ Error: updating Security Group (sg-0a6f7b3479f4863eb) egress rules: updating rules: from_port (53) and to_port (53) must both be 0 to use the 'ALL' "-1" protocol!
+│
+│   with aws_security_group.eks_nodes,
+│   on eks.tf line 76, in resource "aws_security_group" "eks_nodes":
+│   76: resource "aws_security_group" "eks_nodes" {
+│
+
+
+
+-------------
+ Error: Unsupported argument
+│
+│   on aurora.tf line 13, in module "aurora":
+│   13:   create_random_password = false
+│
+│ An argument named "create_random_password" is not expected here.
+╵
+╷
+│ Error: Unsupported argument
+│
+│   on aurora.tf line 31, in module "aurora":
+│   31:   allowed_security_groups = [module.eks_node_sg.security_group_id]
+│
+│ An argument named "allowed_security_groups" is not expected here.
+╵
+
+╵
+╷
+│ Error: creating IAM Role (eksClusterRole): operation error IAM: CreateRole, https response error StatusCode: 409, RequestID: 7eec2dbd-a112-4938-afeb-982afc4ee117, EntityAlreadyExists: Role with name eksClusterRole already exists.
+│
+│   with aws_iam_role.eks_cluster_role,
+│   on iam.tf line 11, in resource "aws_iam_role" "eks_cluster_role":
+│   11: resource "aws_iam_role" "eks_cluster_role" {
+│
+╵
+╷
+│ Error: creating KMS Alias (alias/eks/cmm-poc-demo): operation error KMS: CreateAlias, https response error StatusCode: 400, RequestID: 89c5cf09-24d4-4d20-9073-1885bd3b7cd9, AlreadyExistsException: An alias with the name arn:aws:kms:us-east-1:863518427890:alias/eks/cmm-poc-demo already exists
+│
+│   with module.eks.module.kms.aws_kms_alias.this["cluster"],
+│   on .terraform/modules/eks.kms/main.tf line 452, in resource "aws_kms_alias" "this":
+│  452: resource "aws_kms_alias" "this" {
+│
+╵
+╷
+│ Error: creating CloudWatch Logs Log Group (/aws/eks/cmm-poc-demo/cluster): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: 31b13e3a-7e7b-405e-8d9f-9904042ba397, ResourceAlreadyExistsException: The specified log group already exists
+│
+│   with module.eks.aws_cloudwatch_log_group.this[0],
+│   on .terraform/modules/eks/main.tf line 203, in resource "aws_cloudwatch_log_group" "this":
+│  203: resource "aws_cloudwatch_log_group" "this" {
+│
+
+
+-----------------
+
+
+ Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
+│
+│   with helm_release.alb_ingress_controller,
+│   on add-on.tf line 2, in resource "helm_release" "alb_ingress_controller":
+│    2: resource "helm_release" "alb_ingress_controller" {
+│
+
+ Error: Kubernetes cluster unreachable: Get "https://B344A8EED59FF34172C829679C7D6591.gr7.us-east-1.eks.amazonaws.com/version": dial tcp 10.244.42.176:443: i/o timeout
+│
+│   with helm_release.alb_ingress_controller,
+│   on add-on.tf line 2, in resource "helm_release" "alb_ingress_controller":
+│    2: resource "helm_release" "alb_ingress_controller" 
+
+------------------
+our current IAM principal doesn't have access to Kubernetes objects on this cluster.
+This might be due to the current principal not having an IAM access entry with permissions to access the cluster.
+
+-----------------------
+ Error: Unsupported argument
+│
+│   on aurora.tf line 13, in module "aurora":
+│   13:   create_random_password = false
+│
+│ An argument named "create_random_password" is not expected here.
+╵
+╷
+│ Error: Unsupported argument
+│
+│   on aurora.tf line 31, in module "aurora":
+│   31:   allowed_security_groups = [module.eks_node_sg.security_group_id]
+│
+│ An argument named "allowed_security_groups" is not expected here.
+╵
+------------------------------
+ creating RDS DB Subnet Group (aurora-serverless-pg): operation error RDS: CreateDBSubnetGroup, https response error StatusCode: 403, RequestID: c1ef7b5e-3b54-47e3-97ff-13ecc934c6d2, api error AccessDenied: User: arn:aws:sts::863518427890:assumed-role/cmm-ec2-s3/i-0de084719a784d161 is not authorized to perform: rds:CreateDBSubnetGroup on resource: arn:aws:rds:us-east-1:863518427890:subgrp:aurora-serverless-pg with an explicit deny in a service control policy
+│
+│   with module.aurora.aws_db_subnet_group.this[0],
+│   on .terraform/modules/aurora/main.tf line 25, in resource "aws_db_subnet_group" "this":
+│   25: resource "aws_db_subnet_group" "this" {
+
+
+--------------
+
+aws_secretsmanager_secret.db: Creating...
+aws_secretsmanager_secret.db: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:863518427890:secret:cmm-rds-aurora-cred-gSggr5]
+data.aws_secretsmanager_secret_version.db_password: Reading...
+aws_secretsmanager_secret_version.db_password: Creating...
+aws_secretsmanager_secret_version.db_password: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:863518427890:secret:cmm-rds-aurora-cred-gSggr5|terraform-20250424055213308100000002]
+╷
+│ Error: reading Secrets Manager Secret Version (arn:aws:secretsmanager:us-east-1:863518427890:secret:cmm-rds-aurora-cred-gSggr5|AWSCURRENT): couldn't find resource
+│
+│   with data.aws_secretsmanager_secret_version.db_password,
+│   on aurora.tf line 53, in data "aws_secretsmanager_secret_version" "db_password":
+│   53: data "aws_secretsmanager_secret_version" "db_password" {
+│
