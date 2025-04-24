@@ -15,3 +15,21 @@ I have created Aurora Serverless PostgreSQL v2 & enable autoscaling
 Aws secret manager:
 
 I have created secret for DB credentials
+
+
+_------------
+
+
+Infrastructure Setup:
+
+EKS Cluster:
+Created an EKS cluster with three node groups (Frontend App, Backend App, GPU) and configured required add-ons, access entries, and enabled autoscaling.
+
+S3 Buckets:
+Created three private S3 buckets with encryption enabled, versioning configured, and lifecycle policies applied.
+
+Aurora Serverless PostgreSQL:
+Deployed Aurora Serverless PostgreSQL v2 with autoscaling enabled.
+
+AWS Secrets Manager:
+Created a secret to securely store the database credentials.
