@@ -101,3 +101,9 @@ This might be due to the current principal not having an IAM access entry with p
 │
 │ An argument named "allowed_security_groups" is not expected here.
 ╵
+------------------------------
+ creating RDS DB Subnet Group (aurora-serverless-pg): operation error RDS: CreateDBSubnetGroup, https response error StatusCode: 403, RequestID: c1ef7b5e-3b54-47e3-97ff-13ecc934c6d2, api error AccessDenied: User: arn:aws:sts::863518427890:assumed-role/cmm-ec2-s3/i-0de084719a784d161 is not authorized to perform: rds:CreateDBSubnetGroup on resource: arn:aws:rds:us-east-1:863518427890:subgrp:aurora-serverless-pg with an explicit deny in a service control policy
+│
+│   with module.aurora.aws_db_subnet_group.this[0],
+│   on .terraform/modules/aurora/main.tf line 25, in resource "aws_db_subnet_group" "this":
+│   25: resource "aws_db_subnet_group" "this" {
