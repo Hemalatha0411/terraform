@@ -235,3 +235,10 @@ aws_secretsmanager_secret_version.db_password: Creation complete after 0s [id=ar
 │   on aurora.tf line 53, in data "aws_secretsmanager_secret_version" "db_password":
 │   53: data "aws_secretsmanager_secret_version" "db_password" {
 │
+
+
+
+------------
+
+Error: INSTALLATION FAILED: template: zpl-angular-app-fe/templates/service.yaml:4:11: executing "zpl-angular-app-fe/templates/service.yaml" at <include "angular-app.fullname" .>: error calling include: template: no template "angular-app.fullname" associated with template "gotpl"
+
