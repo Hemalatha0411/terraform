@@ -1,0 +1,24 @@
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "angular-app.name" -}}
+{{- .Chart.Name | trunc 63 | trimSuffix "-" -}}
+{{- end }}
+
+{{/*
+Create a default fullname.
+*/}}
+{{- define "angular-app.fullname" -}}
+{{- printf "%s" (include "angular-app.name" .) | trunc 63 | trimSuffix "-" -}}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "angular-app.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+app.kubernetes.io/name: {{ include "angular-app.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
