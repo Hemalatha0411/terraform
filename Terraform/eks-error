@@ -242,3 +242,6 @@ aws_secretsmanager_secret_version.db_password: Creation complete after 0s [id=ar
 
 Error: INSTALLATION FAILED: template: zpl-angular-app-fe/templates/service.yaml:4:11: executing "zpl-angular-app-fe/templates/service.yaml" at <include "angular-app.fullname" .>: error calling include: template: no template "angular-app.fullname" associated with template "gotpl"
 
+---------
+
+
