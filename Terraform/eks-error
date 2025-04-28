@@ -244,4 +244,12 @@ Error: INSTALLATION FAILED: template: zpl-angular-app-fe/templates/service.yaml:
 
 ---------
 
+helm_release.angular_app: Creating...
+╷
+│ Error: template: angular-app/templates/ingress.yaml:20:25: executing "angular-app/templates/ingress.yaml" at <include "angular-app.fullname" .>: error calling include: template: angular-app/templates/_helpers.tpl:6:17: executing "angular-app.fullname" at <include "angular-app.name" .>: error calling include: template: angular-app/templates/_helpers.tpl:2:10: executing "angular-app.name" at <.Chart.Name>: nil pointer evaluating interface {}.Name
+│
+│   with helm_release.angular_app,
+│   on main.tf line 1, in resource "helm_release" "angular_app":
+│    1: resource "helm_release" "angular_app" {
+│
 
