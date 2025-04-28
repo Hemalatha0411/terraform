@@ -253,3 +253,13 @@ helm_release.angular_app: Creating...
 │    1: resource "helm_release" "angular_app" {
 │
 
+----------
+aws_iam_role.flask_app_irsa_role: Creating...
+╷
+│ Error: creating IAM Role (flask-backend-irsa-role): operation error IAM: CreateRole, https response error StatusCode: 400, RequestID: 42b31354-1c90-41e6-8f17-fb586d5ce749, MalformedPolicyDocument: Federated principals must be valid domain names or SAML metadata ARNs
+│
+│   with aws_iam_role.flask_app_irsa_role,
+│   on iam.tf line 27, in resource "aws_iam_role" "flask_app_irsa_role":
+│   27: resource "aws_iam_role" "flask_app_irsa_role" {
+|
+|
