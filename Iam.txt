@@ -1,0 +1,21 @@
+resource "aws_iam_role" "flask_app_irsa_role" {
+  name = "flask-backend-irsa-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = "arn:aws:iam::${var.aws_account_id}:oidc-provider/${var.eks_oidc_provider_url}"
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "${var.eks_oidc_provider_url}:sub" = "system:serviceaccount:${var.namespace}:flask-app-sa"
+          }
+        }
+      }
+    ]
+  })
+}
