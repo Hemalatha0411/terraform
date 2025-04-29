@@ -1,0 +1,95 @@
+ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 28, in module "eks":
+│   28:   cluster_name    = var.cluster_name
+│
+│ An input variable with the name "cluster_name" has not been declared. This variable can be declared with a variable "cluster_name" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 29, in module "eks":
+│   29:   cluster_version = var.kubernetes_version
+│
+│ An input variable with the name "kubernetes_version" has not been declared. This variable can be declared with a variable "kubernetes_version" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 30, in module "eks":
+│   30:   subnet_ids      = var.private_subnet_ids
+│
+│ An input variable with the name "private_subnet_ids" has not been declared. This variable can be declared with a variable "private_subnet_ids" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 31, in module "eks":
+│   31:   vpc_id          = var.vpc_id
+│
+│ An input variable with the name "vpc_id" has not been declared. This variable can be declared with a variable "vpc_id" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 41, in module "eks":
+│   41:       principal_arn = var.iam_user_arn
+│
+│ An input variable with the name "iam_user_arn" has not been declared. This variable can be declared with a variable "iam_user_arn" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 45, in module "eks":
+│   45:           policy_arn = var.eks_policy_arn
+│
+│ An input variable with the name "eks_policy_arn" has not been declared. This variable can be declared with a variable "eks_policy_arn" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/eks/eks.tf line 161, in resource "aws_security_group" "eks_nodes":
+│  161:   vpc_id      = var.vpc_id
+│
+│ An input variable with the name "vpc_id" has not been declared. This variable can be declared with a variable "vpc_id" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/ingress-controller/main.tf line 2, in data "aws_eks_cluster" "eks":
+│    2:   name = var.cluster_name  # Replace with your EKS cluster name
+│
+│ An input variable with the name "cluster_name" has not been declared. This variable can be declared with a variable "cluster_name" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/s3/s3.tf line 3, in resource "aws_s3_bucket" "upload_bucket":
+│    3:   bucket        = var.upload_bucket
+│
+│ An input variable with the name "upload_bucket" has not been declared. This variable can be declared with a variable "upload_bucket" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/s3/s3.tf line 8, in resource "aws_s3_bucket" "download_bucket":
+│    8:   bucket        = var.download_bucket
+│
+│ An input variable with the name "download_bucket" has not been declared. This variable can be declared with a variable "download_bucket" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/s3/s3.tf line 13, in resource "aws_s3_bucket" "app_data_bucket":
+│   13:   bucket        = var.app_data_bucket
+│
+│ An input variable with the name "app_data_bucket" has not been declared. This variable can be declared with a variable "app_data_bucket" {} block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/secret/awssecretmanager.tf line 2, in resource "aws_secretsmanager_secret" "db_secret":
+│    2:   name        = var.aws_secret_name
+│
+│ An input variable with the name "aws_secret_name" has not been declared. This variable can be declared with a variable "aws_secret_name" {} block.
+╵
