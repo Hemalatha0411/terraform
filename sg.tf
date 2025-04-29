@@ -32,3 +32,14 @@ resource "aws_security_group" "eks_nodes" {
   }
 }
 
+---------------
+
+resource "aws_security_group_rule" "allow_tcp_from_pods_to_eks_cluster" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = ["10.244.41.0/24"]
+  security_group_id = module.eks.cluster_security_group_id
+  description       = "Allow all TCP from pod CIDR to EKS cluster"
+}
