@@ -218,3 +218,19 @@
 │
 │ If you also control the module "./modules/ingress-controller", consider updating this module to instead expect provider configurations to be passed by
 │ its caller.
+
+
+----------------
+
+ Warning: Reference to undefined provider
+│
+│   on main.tf line 22, in module "ingress_controller":
+│   22:      aws        = aws
+│
+│ There is no explicit declaration for local provider name "aws" in module.ingress_controller, so Terraform is assuming you mean to pass a configuration
+│ for "hashicorp/aws".
+│
+│ If you also control the child module, add a required_providers entry named "aws" with the source address "hashicorp/aws".
+│
+│ (and 2 more similar warnings elsewhere)
+╵
