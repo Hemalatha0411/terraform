@@ -21,6 +21,16 @@
 │
 │ An input variable with the name "private_subnet_ids" has not been declared. This variable can be declared with a variable "private_subnet_ids" {} block.
 
+
+---------
+ Error: Kubernetes cluster unreachable: Get "https://A3539A2BA0E516B10B90FE699AFFF122.gr7.us-east-1.eks.amazonaws.com/version": dial tcp 10.244.41.188:443: i/o timeout
+│
+│   with module.ingress_controller.helm_release.nginx_ingress,
+│   on modules/ingress-controller/main.tf line 13, in resource "helm_release" "nginx_ingress":
+│   13: resource "helm_release" "nginx_ingress" {
+│
+
+
 -----------------
 
  Error: Unsupported attribute
