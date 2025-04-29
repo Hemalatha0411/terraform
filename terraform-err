@@ -207,3 +207,14 @@
 │    1: data "aws_eks_cluster" "eks" {
 │
 
+----------------
+ Error: Module is incompatible with count, for_each, and depends_on
+│
+│   on main.tf line 20, in module "ingress_controller":
+│   20:   depends_on = [module.eks]
+│
+│ The module at module.ingress_controller is a legacy module which contains its own local provider configurations, and so calls to it may not use the
+│ count, for_each, or depends_on arguments.
+│
+│ If you also control the module "./modules/ingress-controller", consider updating this module to instead expect provider configurations to be passed by
+│ its caller.
