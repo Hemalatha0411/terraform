@@ -175,3 +175,20 @@
 │
 │ An input variable with the name "aws_secret_name" has not been declared. This variable can be declared with a variable "aws_secret_name" {} block.
 ╵
+
+--------------
+ Error: reading EKS Cluster (zpl-cmm): couldn't find resource
+│
+│   with module.eks.data.aws_eks_cluster.this,
+│   on modules/eks/eks.tf line 1, in data "aws_eks_cluster" "this":
+│    1: data "aws_eks_cluster" "this" {
+│
+╵
+╷
+│ Error: reading EKS Cluster (zpl-cmm): couldn't find resource
+│
+│   with module.ingress_controller.data.aws_eks_cluster.eks,
+│   on modules/ingress-controller/main.tf line 1, in data "aws_eks_cluster" "eks":
+│    1: data "aws_eks_cluster" "eks" {
+│
+
