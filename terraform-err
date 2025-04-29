@@ -20,6 +20,88 @@
 │   30:   subnet_ids      = var.private_subnet_ids
 │
 │ An input variable with the name "private_subnet_ids" has not been declared. This variable can be declared with a variable "private_subnet_ids" {} block.
+
+-----------------
+
+ Error: Unsupported attribute
+│
+│   on outputs.tf line 2, in output "eks_cluster_name":
+│    2:   value = module.eks.cluster_name
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_name".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on outputs.tf line 6, in output "eks_cluster_endpoint":
+│    6:   value = module.eks.cluster_endpoint
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_endpoint".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on outputs.tf line 10, in output "eks_cluster_security_group_id":
+│   10:   value = module.eks.cluster_primary_security_group_id
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_primary_security_group_id".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on outputs.tf line 13, in output "aurora_endpoint":
+│   13:   value = module.aurora.aws_rds_cluster.aurora.endpoint
+│     ├────────────────
+│     │ module.aurora is a object
+│
+│ This object does not have an attribute named "aws_rds_cluster".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on outputs.tf line 17, in output "aurora_reader_endpoint":
+│   17:   value = module.aurora.aws_rds_cluster.aurora.reader_endpoint
+│     ├────────────────
+│     │ module.aurora is a object
+│
+│ This object does not have an attribute named "aws_rds_cluster".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on outputs.tf line 31, in output "service_account_name":
+│   31:   value = module.flask.kubernetes_service_account.flask_app_sa.metadata[0].name
+│     ├────────────────
+│     │ module.flask is a object
+│
+│ This object does not have an attribute named "kubernetes_service_account".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on outputs.tf line 35, in output "flask_helm_release_status":
+│   35:   value = module.flask.helm_release.flask_app.status
+│     ├────────────────
+│     │ module.flask is a object
+│
+│ This object does not have an attribute named "helm_release".
+╵
+╷
+│ Error: Reference to undeclared input variable
+│
+│   on modules/angular-app/main.tf line 2, in resource "helm_release" "angular_app":
+│    2:   name       = var.angular_release_name
+│
+│ An input variable with the name "angular_release_name" has not been declared. This variable can be declared with a variable "angular_release_name" {}
+│ block.
+╵
+
 ╵
 ╷
 │ Error: Reference to undeclared input variable
