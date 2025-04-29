@@ -1,0 +1,231 @@
+Initializing the backend...
+Initializing modules...
+╷
+│ Warning: Reference to undefined provider
+│
+│   on main.tf line 22, in module "ingress_controller":
+│   22:      aws        = aws
+│
+│ There is no explicit declaration for local provider name "aws" in module.ingress_controller, so Terraform is assuming you mean to pass a configuration
+│ for "hashicorp/aws".
+│
+│ If you also control the child module, add a required_providers entry named "aws" with the source address "hashicorp/aws".
+│
+│ (and 2 more similar warnings elsewhere)
+╵
+╷
+│ Error: Terraform encountered problems during initialisation, including problems
+│ with the configuration, described below.
+│
+│ The Terraform configuration must be valid before initialization so that
+│ Terraform can determine which modules and providers need to be installed.
+│
+│
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 19, in provider "aws":
+│   19:   region = "us-east-1
+│   20: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Unterminated template string
+│
+│   on provider.tf line 19, in provider "aws":
+│   19:   region = "us-east-1
+│   20: }
+│
+│ No closing marker was found for the string.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 20, in provider "aws":
+│   20: }
+│   21: data "aws_eks_cluster" "eks" {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 22, in provider "aws":
+│   22: data "aws_eks_cluster" "eks" {
+│   23:   name = var.cluster_name
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 23, in provider "aws":
+│   23:   name = var.cluster_name
+│   24: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 24, in provider "aws":
+│   24: }
+│   25: data "aws_eks_cluster_auth" "eks" {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 26, in provider "aws":
+│   26: data "aws_eks_cluster_auth" "eks" {
+│   27:   name = var.cluster_name
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 27, in provider "aws":
+│   27:   name = var.cluster_name
+│   28: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 28, in provider "aws":
+│   28: }
+│   29: provider "kubernetes" {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 30, in provider "aws":
+│   30: provider "kubernetes" {
+│   31:   host                   = data.aws_eks_cluster.eks.endpoint
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 31, in provider "aws":
+│   31:   host                   = data.aws_eks_cluster.eks.endpoint
+│   32:   cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 32, in provider "aws":
+│   32:   cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+│   33:   token                  = data.aws_eks_cluster_auth.eks.token
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 33, in provider "aws":
+│   33:   token                  = data.aws_eks_cluster_auth.eks.token
+│   34: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 34, in provider "aws":
+│   34: }
+│   35: provider "helm" {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 35, in provider "aws":
+│   35: provider "helm" {
+│   36:   kubernetes {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 36, in provider "aws":
+│   36:   kubernetes {
+│   37:     host                   = data.aws_eks_cluster.eks.endpoint
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 37, in provider "aws":
+│   37:     host                   = data.aws_eks_cluster.eks.endpoint
+│   38:     cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 38, in provider "aws":
+│   38:     cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+│   39:     token                  = data.aws_eks_cluster_auth.eks.token
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 39, in provider "aws":
+│   39:     token                  = data.aws_eks_cluster_auth.eks.token
+│   40:   }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 40, in provider "aws":
+│   40:   }
+│   41: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on provider.tf line 41, in provider "aws":
+│   41: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
