@@ -150,6 +150,21 @@
 │    3:   bucket        = var.upload_bucket
 │
 │ An input variable with the name "upload_bucket" has not been declared. This variable can be declared with a variable "upload_bucket" {} block.
+
+
+-------------------
+
+ Error: Module is incompatible with count, for_each, and depends_on
+│
+│   on main.tf line 20, in module "ingress_controller":
+│   20:   depends_on = [module.eks]
+│
+│ The module at module.ingress_controller is a legacy module which contains its own local provider configurations, and so calls to it may not use the
+│ count, for_each, or depends_on arguments.
+│
+│ If you also control the module "./modules/ingress-controller", consider updating this module to instead expect provider configurations to be passed by
+│ its caller.
+|
 ╵
 ╷
 │ Error: Reference to undeclared input variable
