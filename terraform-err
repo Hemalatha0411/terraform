@@ -244,3 +244,15 @@
 │
 │ (and 2 more similar warnings elsewhere)
 ╵
+
+-------
+module.ingress_controller.helm_release.nginx_ingress: Creating...
+module.ingress_controller.helm_release.nginx_ingress: Still creating... [10s elapsed]
+module.ingress_controller.helm_release.nginx_ingress: Still creating... [20s elapsed]
+module.ingress_controller.helm_release.nginx_ingress: Still creating... [30s elapsed]
+╷
+│ Error: Kubernetes cluster unreachable: Get "https://A3539A2BA0E516B10B90FE699AFFF122.gr7.us-east-1.eks.amazonaws.com/version": dial tcp 10.244.41.188:443: i/o timeout
+│
+│   with module.ingress_controller.helm_release.nginx_ingress,
+│   on modules/ingress-controller/main.tf line 13, in resource "helm_release" "nginx_ingress":
+│   13: resource "helm_release" "nginx_ingress" {
