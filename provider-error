@@ -260,3 +260,9 @@ Warning: annotation "kubernetes.io/ingress.class" is deprecated, please use 'spe
 Warning: path /myapp(/|$)(.*) cannot be used with pathType Prefix
 
 -----------------
+│ Error: reading EKS Cluster (zpl-cmm): couldn't find resource
+│
+│   with data.aws_eks_cluster.eks,
+│   on provider.tf line 22, in data "aws_eks_cluster" "eks":
+│   22: data "aws_eks_cluster" "eks" {
+│
