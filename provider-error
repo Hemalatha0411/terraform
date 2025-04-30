@@ -241,3 +241,17 @@ Initializing modules...
 │     │ module.eks is a object
 │
 │ This object does not have an attribute named "eks_managed_node_groups".
+
+
+------------
+
+kubernetes_service_account.flask_app_sa: Creating...
+╷
+│ Error: Post "http://localhost/api/v1/namespaces/zpl-cmm/serviceaccounts": dial tcp 127.0.0.1:80: connect: connection refused
+│
+│   with kubernetes_service_account.flask_app_sa,
+│   on k8s-serviceaccount.tf line 1, in resource "kubernetes_service_account" "flask_app_sa":
+│    1: resource "kubernetes_service_account" "flask_app_sa" {
+│
+
+---------------------
