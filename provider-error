@@ -229,3 +229,15 @@ Initializing modules...
 │
 │ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
 │ "heredoc" multi-line template syntax.
+
+
+---------------
+
+ Error: Unsupported attribute
+│
+│   on output.tf line 2, in output "angular_node_group_name":
+│    2:   value = module.eks.eks_managed_node_groups["frontend_nodes"].node_group_name
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "eks_managed_node_groups".
