@@ -255,3 +255,8 @@ kubernetes_service_account.flask_app_sa: Creating...
 │
 
 ---------------------
+
+Warning: annotation "kubernetes.io/ingress.class" is deprecated, please use 'spec.ingressClassName' instead
+Warning: path /myapp(/|$)(.*) cannot be used with pathType Prefix
+
+-----------------
