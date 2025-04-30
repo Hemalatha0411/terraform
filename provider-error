@@ -278,3 +278,65 @@ Warning: path /myapp(/|$)(.*) cannot be used with pathType Prefix
 │ This object does not have an attribute named "cluster_name".
 ╵
 |
+
+
+------------
+
+│ Error: Unsupported attribute
+│
+│   on prvider.tf line 30, in provider "kubernetes":
+│   30:   host                   = module.eks.cluster_endpoint
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_endpoint".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on prvider.tf line 31, in provider "kubernetes":
+│   31:   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_certificate_authority_data".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on prvider.tf line 35, in provider "kubernetes":
+│   35:     args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_name".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on prvider.tf line 41, in provider "helm":
+│   41:     host                   = module.eks.cluster_endpoint
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_endpoint".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on prvider.tf line 42, in provider "helm":
+│   42:     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_certificate_authority_data".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on prvider.tf line 46, in provider "helm":
+│   46:       args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_name".
