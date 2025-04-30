@@ -266,3 +266,15 @@ Warning: path /myapp(/|$)(.*) cannot be used with pathType Prefix
 │   on provider.tf line 22, in data "aws_eks_cluster" "eks":
 │   22: data "aws_eks_cluster" "eks" {
 │
+
+-------------
+ Error: Unsupported attribute
+│
+│   on provider.tf line 30, in data "aws_eks_cluster_auth" "eks":
+│   30:   name = module.eks.cluster_name
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "cluster_name".
+╵
+|
