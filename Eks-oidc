@@ -1,0 +1,30 @@
+# OIDC provider URL
+output "oidc_provider_url" {
+  value = module.eks.oidc_provider
+}
+
+# OIDC provider ARN
+output "oidc_provider_arn" {
+  value = module.eks.oidc_provider_arn
+}
+
+
+resource "aws_iam_role" "gpu_irsa_role" {
+  name = "gpu-irsa-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Principal = {
+        Federated = module.eks.oidc_provider_arn
+      },
+      Action = "sts:AssumeRoleWithWebIdentity",
+      Condition = {
+        StringEquals = {
+          "${replace(module.eks.oidc_provider, "https://", "")}:sub" = "system:serviceaccount:default:gpu-infer-sa"
+        }
+      }
+    }]
+  })
+}
