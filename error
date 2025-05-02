@@ -1,0 +1,38 @@
+ Error: Unsupported attribute
+│
+│   on provider.tf line 23, in provider "kubernetes":
+│   23:   host                   = module.eks.eks_cluster.endpoint
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "eks_cluster".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on provider.tf line 24, in provider "kubernetes":
+│   24:   cluster_ca_certificate = base64decode(module.eks.eks_cluster.certificate_authority[0].data)
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "eks_cluster".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on provider.tf line 28, in provider "kubernetes":
+│   28:     args        = ["eks", "get-token", "--cluster-name", module.eks.eks_cluster.name]
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "eks_cluster".
+╵
+╷
+│ Error: Unsupported attribute
+│
+│   on provider.tf line 34, in provider "helm":
+│   34:     host                   = module.eks.eks_cluster.endpoint
+│     ├────────────────
+│     │ module.eks is a object
+│
+│ This object does not have an attribute named "eks_cluster".
