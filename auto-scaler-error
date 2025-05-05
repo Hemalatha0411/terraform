@@ -279,3 +279,17 @@ Initializing modules...
 │ An argument named "iam_policy_arns" is not expected here.
 
 ----------
+
+
+│ Error: Error in function call
+│
+│   on .terraform/modules/cluster-autoscaler.cluster_autoscaler_irsa/modules/iam-role-for-service-accounts-eks/policies.tf line 112, in data "aws_iam_policy_document" "cluster_autoscaler":
+│  112:     for_each = toset(coalescelist(var.cluster_autoscaler_cluster_ids, var.cluster_autoscaler_cluster_names))
+│     ├────────────────
+│     │ while calling coalescelist(vals...)
+│     │ var.cluster_autoscaler_cluster_ids is empty list of string
+│     │ var.cluster_autoscaler_cluster_names is empty list of string
+│
+│ Call to function "coalescelist" failed: no non-null arguments.
+╵
+
