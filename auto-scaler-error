@@ -313,3 +313,15 @@ Events:
   Normal   Pulled     52s (x5 over 4m1s)   kubelet            Container image "registry.k8s.io/autoscaling/cluster-autoscaler:v1.27.2" already present on machine
   Warning  BackOff    2s (x21 over 3m56s)  kubelet            Back-off restarting failed container aws-cluster-autoscaler in pod cluster-autoscaler-aws-cluster-autoscaler-7b557f49f4-mrbvs_kube-system(a87d36af-94aa-473d-98e0-9bfa719a3a71)
 -------
+I0505 09:55:18.075583       1 auto_scaling_groups.go:367] Regenerating instance to ASG map for ASG names: []
+I0505 09:55:18.075593       1 auto_scaling_groups.go:374] Regenerating instance to ASG map for ASG tags: map[k8s.io/cluster-autoscaler/enabled: k8s.io/cluster-autoscaler/zpl-cmm:]
+E0505 09:55:18.374563       1 aws_manager.go:125] Failed to regenerate ASG cache: WebIdentityErr: failed to retrieve credentials
+caused by: RequestError: send request failed
+caused by: Post "https://sts.us-east-a.amazonaws.com/": dial tcp: lookup sts.us-east-a.amazonaws.com on 172.20.0.10:53: no such host
+F0505 09:55:18.374612       1 aws_cloud_provider.go:437] Failed to create AWS Manager: WebIdentityErr: failed to retrieve credentials
+caused by: RequestError: send request failed
+caused by: Post "https://sts.us-east-a.amazonaws.com/": dial tcp: lookup sts.us-east-a.amazonaws.com on 172.20.0.10:53: no such host
+
+--------
+
+
