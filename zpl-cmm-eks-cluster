@@ -1,0 +1,272 @@
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.0"
+
+  cluster_name    = var.cluster_name
+  cluster_version = var.kubernetes_version
+  subnet_ids      = var.private_subnet_ids
+  vpc_id          = var.vpc_id
+  enable_irsa     = true
+
+  cluster_endpoint_private_access          = true
+  cluster_endpoint_public_access           = false
+  enable_cluster_creator_admin_permissions = true
+  authentication_mode                      = "API_AND_CONFIG_MAP"
+  access_entries = {
+    # One access entry with a policy associated
+    example = {
+      principal_arn = var.iam_user_arn
+
+      policy_associations = {
+        example = {
+          policy_arn = var.eks_policy_arn
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
+  }
+  cluster_enabled_log_types = [
+    "api",
+    "scheduler",
+    "controllerManager"
+  ]
+  cluster_upgrade_policy = {
+    support_type = "STANDARD"
+  }
+
+  eks_managed_node_groups = {
+    frontend_nodes = {
+      name                   = "frontend_node"
+      use_name_prefix        = false
+      instance_types         = ["t3.large"]
+      ami_type               = "AL2_x86_64"
+      subnet_ids             = var.private_subnet_ids
+      desired_size           = 1
+      min_size               = 1
+      max_size               = 2
+      vpc_security_group_ids = [aws_security_group.eks_nodes.id]
+      labels = {
+        role = "frontend"
+      }
+      tags = {
+        "Name"                                          = "frontend-nodes"
+        "k8s.io/cluster-autoscaler/enabled"             = "true"
+        "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned"
+      }
+    }
+
+    backend_nodes = {
+      name                   = "backend_node"
+      use_name_prefix        = false
+      instance_types         = ["m4.xlarge"]
+      ami_type               = "AL2_x86_64"
+      subnet_ids             = var.private_subnet_ids
+      desired_size           = 1
+      min_size               = 1
+      max_size               = 5
+      vpc_security_group_ids = [aws_security_group.eks_nodes.id]
+      labels = {
+        role = "backend"
+      }
+      tags = {
+        "Name"                                          = "backend-nodes"
+        "k8s.io/cluster-autoscaler/enabled"             = "true"
+        "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned"
+      }
+    }
+
+    inference_nodes = {
+      name                   = "inference_node"
+      use_name_prefix        = false
+      instance_types         = ["g4dn.xlarge"]
+      ami_type               = "AL2_x86_64"
+      subnet_ids             = var.private_subnet_ids
+      desired_size           = 0
+      min_size               = 0
+      max_size               = 100
+      vpc_security_group_ids = [aws_security_group.eks_nodes.id]
+      labels = {
+        role = "inference"
+      }
+      tags = {
+        "Name"                                          = "inference-nodes"
+        "k8s.io/cluster-autoscaler/enabled"             = "true"
+        "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned"
+
+      }
+    }
+  }
+
+  tags = {
+    "cluster"                                       = "demo"
+
+  }
+}
+resource "aws_eks_addon" "vpc_cni" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "vpc-cni"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "coredns" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "coredns"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "kube_proxy" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "kube-proxy"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "metrics_server" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "metrics-server"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "pod_identity_agent" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "eks-pod-identity-agent"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "node_monitoring_agent" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "eks-node-monitoring-agent"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_security_group" "eks_nodes" {
+  name        = var.eks-nodes-sg
+  description = "Security group for EKS nodes"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
+  }
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 10250
+    to_port     = 10250
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+resource "aws_security_group_rule" "allow_tcp_from_pods_to_eks_cluster" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = ["10.244.41.0/24"]
+  security_group_id = module.eks.cluster_security_group_id
+  description       = "Allow all TCP from pod CIDR to EKS cluster"
+}
+
+--------
+
+ iam.tf
+
+data "aws_iam_policy_document" "eks_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["eks.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "eks_cluster_role" {
+  name               = var.eks_cluster_role
+  assume_role_policy = data.aws_iam_policy_document.eks_assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
+  role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+}
+
+data "aws_iam_policy_document" "node_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "eks_node_group_role" {
+  name               = var.eks_node_group_role
+  assume_role_policy = data.aws_iam_policy_document.node_assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "eks_worker_policy" {
+  role       = aws_iam_role.eks_node_group_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
+  role       = aws_iam_role.eks_node_group_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecr_read_policy" {
+  role       = aws_iam_role.eks_node_group_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+data "aws_iam_policy_document" "alb_controller_assume_role" {
+  statement {
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+    effect  = "Allow"
+    principals {
+      type        = "Federated"
+      identifiers = [module.eks.oidc_provider_arn]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "${module.eks.oidc_provider}:sub"
+      values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
+    }
+  }
+}
+
+resource "aws_iam_role" "alb_controller_irsa" {
+  name               = var.alb_controller_irsa
+  assume_role_policy = data.aws_iam_policy_document.alb_controller_assume_role.json
+}
+
+resource "aws_iam_role_policy_attachment" "alb_controller_policy" {
+  role       = aws_iam_role.alb_controller_irsa.name
+  policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
+}
+
+    
