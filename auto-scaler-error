@@ -245,3 +245,27 @@ Initializing modules...
 │
 │ An argument named "policy_json" is not expected here.
 
+-----------
+
+ Error: Unsupported argument
+│
+│   on modules/cluster-autoscaler/main.tf line 29, in module "cluster_autoscaler_irsa":
+│   29:   attach_policy = true
+│
+│ An argument named "attach_policy" is not expected here.
+╵
+╷
+│ Error: Unsupported argument
+│
+│   on modules/cluster-autoscaler/main.tf line 30, in module "cluster_autoscaler_irsa":
+│   30:   policy_name   = "cluster-autoscaler-policy"
+│
+│ An argument named "policy_name" is not expected here.
+╵
+╷
+│ Error: Unsupported argument
+│
+│   on modules/cluster-autoscaler/main.tf line 31, in module "cluster_autoscaler_irsa":
+│   31:   policy   = data.aws_iam_policy_document.cluster_autoscaler.json
+│
+│ An argument named "policy" is not expected here.
