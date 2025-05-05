@@ -324,4 +324,16 @@ caused by: Post "https://sts.us-east-a.amazonaws.com/": dial tcp: lookup sts.us-
 
 --------
 
+ kubectl get po -l k8s-app=kube-dns -n kube-system
+NAME                       READY   STATUS    RESTARTS   AGE
+coredns-6b9575c64c-442c9   1/1     Running   0          3d1h
+coredns-6b9575c64c-r4jdj   1/1     Running   0          3d1h
+
+nslookup sts.us-east-1.amazonaws.com
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   sts.us-east-1.amazonaws.com
+Address: 54.239.16.72
 
