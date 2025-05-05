@@ -269,3 +269,13 @@ Initializing modules...
 │   31:   policy   = data.aws_iam_policy_document.cluster_autoscaler.json
 │
 │ An argument named "policy" is not expected here.
+
+-------
+ Error: Unsupported argument
+│
+│   on modules/cluster-autoscaler/main.tf line 38, in module "cluster_autoscaler_irsa":
+│   38:   iam_policy_arns = [aws_iam_policy.cluster_autoscaler.arn]
+│
+│ An argument named "iam_policy_arns" is not expected here.
+
+----------
