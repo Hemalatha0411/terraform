@@ -293,3 +293,12 @@ Initializing modules...
 │ Call to function "coalescelist" failed: no non-null arguments.
 ╵
 
+------------------
+Error: Invalid value for input variable
+│
+│   on modules/cluster-autoscaler/main.tf line 38, in module "cluster_autoscaler_irsa":
+│   38:   cluster_autoscaler_cluster_names = var.cluster_name
+│
+│ The given value is not suitable for module.cluster-autoscaler.module.cluster_autoscaler_irsa.var.cluster_autoscaler_cluster_names declared at
+│ .terraform/modules/cluster-autoscaler.cluster_autoscaler_irsa/modules/iam-role-for-service-accounts-eks/variables.tf:122,1-44: list of string required.
+----------
