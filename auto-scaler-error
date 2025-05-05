@@ -302,3 +302,14 @@ Error: Invalid value for input variable
 │ The given value is not suitable for module.cluster-autoscaler.module.cluster_autoscaler_irsa.var.cluster_autoscaler_cluster_names declared at
 │ .terraform/modules/cluster-autoscaler.cluster_autoscaler_irsa/modules/iam-role-for-service-accounts-eks/variables.tf:122,1-44: list of string required.
 ----------
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  4m10s                default-scheduler  Successfully assigned kube-system/cluster-autoscaler-aws-cluster-autoscaler-7b557f49f4-mrbvs to ip-10-244-41-163.ec2.internal
+  Normal   Pulling    4m9s                 kubelet            Pulling image "registry.k8s.io/autoscaling/cluster-autoscaler:v1.27.2"
+  Normal   Pulled     4m7s                 kubelet            Successfully pulled image "registry.k8s.io/autoscaling/cluster-autoscaler:v1.27.2" in 2.317s (2.317s including waiting). Image size: 37241668 bytes.
+  Normal   Created    52s (x6 over 4m7s)   kubelet            Created container: aws-cluster-autoscaler
+  Normal   Started    52s (x6 over 4m7s)   kubelet            Started container aws-cluster-autoscaler
+  Normal   Pulled     52s (x5 over 4m1s)   kubelet            Container image "registry.k8s.io/autoscaling/cluster-autoscaler:v1.27.2" already present on machine
+  Warning  BackOff    2s (x21 over 3m56s)  kubelet            Back-off restarting failed container aws-cluster-autoscaler in pod cluster-autoscaler-aws-cluster-autoscaler-7b557f49f4-mrbvs_kube-system(a87d36af-94aa-473d-98e0-9bfa719a3a71)
+-------
