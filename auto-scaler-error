@@ -1,0 +1,212 @@
+Initializing the backend...
+Initializing modules...
+- cluster-autoscaler in modules/cluster-autoscaler
+╷
+│ Error: Missing newline after argument
+│
+│   on modules/cluster-autoscaler/main.tf line 3, in resource "aws_iam_policy" "cluster_autoscaler":
+│    3:   name   = var.cluster_autoscaler_policy"
+│
+│ An argument definition must end with a newline.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 3, in resource "aws_iam_policy" "cluster_autoscaler":
+│    3:   name   = var.cluster_autoscaler_policy"
+│    4:   policy = data.aws_iam_policy_document.cluster_autoscaler.json
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 4, in resource "aws_iam_policy" "cluster_autoscaler":
+│    4:   policy = data.aws_iam_policy_document.cluster_autoscaler.json
+│    5: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 5, in resource "aws_iam_policy" "cluster_autoscaler":
+│    5: }
+│    6: data "aws_iam_policy_document" "cluster_autoscaler" {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 7, in resource "aws_iam_policy" "cluster_autoscaler":
+│    7: data "aws_iam_policy_document" "cluster_autoscaler" {
+│    8:   statement {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 8, in resource "aws_iam_policy" "cluster_autoscaler":
+│    8:   statement {
+│    9:     effect = "Allow"
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 9, in resource "aws_iam_policy" "cluster_autoscaler":
+│    9:     effect = "Allow"
+│   10:     actions = [
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 10, in resource "aws_iam_policy" "cluster_autoscaler":
+│   10:     actions = [
+│   11:       "autoscaling:DescribeAutoScalingGroups",
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 11, in resource "aws_iam_policy" "cluster_autoscaler":
+│   11:       "autoscaling:DescribeAutoScalingGroups",
+│   12:       "autoscaling:DescribeAutoScalingInstances",
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 12, in resource "aws_iam_policy" "cluster_autoscaler":
+│   12:       "autoscaling:DescribeAutoScalingInstances",
+│   13:       "autoscaling:SetDesiredCapacity",
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 13, in resource "aws_iam_policy" "cluster_autoscaler":
+│   13:       "autoscaling:SetDesiredCapacity",
+│   14:       "autoscaling:TerminateInstanceInAutoScalingGroup",
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 14, in resource "aws_iam_policy" "cluster_autoscaler":
+│   14:       "autoscaling:TerminateInstanceInAutoScalingGroup",
+│   15:       "autoscaling:DescribeTags",
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 15, in resource "aws_iam_policy" "cluster_autoscaler":
+│   15:       "autoscaling:DescribeTags",
+│   16:       "ec2:DescribeLaunchTemplateVersions",
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 16, in resource "aws_iam_policy" "cluster_autoscaler":
+│   16:       "ec2:DescribeLaunchTemplateVersions",
+│   17:       "ec2:DescribeInstanceTypes"
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 17, in resource "aws_iam_policy" "cluster_autoscaler":
+│   17:       "ec2:DescribeInstanceTypes"
+│   18:     ]
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 18, in resource "aws_iam_policy" "cluster_autoscaler":
+│   18:     ]
+│   19:     resources = ["*"]
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 19, in resource "aws_iam_policy" "cluster_autoscaler":
+│   19:     resources = ["*"]
+│   20:   }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 20, in resource "aws_iam_policy" "cluster_autoscaler":
+│   20:   }
+│   21: }
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 21, in resource "aws_iam_policy" "cluster_autoscaler":
+│   21: }
+│   22: # IRSA Role for Cluster Autoscaler
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 23, in resource "aws_iam_policy" "cluster_autoscaler":
+│   23: # IRSA Role for Cluster Autoscaler
+│   24: module "cluster_autoscaler_irsa" {
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+╵
+╷
+│ Error: Invalid multi-line string
+│
+│   on modules/cluster-autoscaler/main.tf line 24, in resource "aws_iam_policy" "cluster_autoscaler":
+│   24: module "cluster_autoscaler_irsa" {
+│   25:   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+│
+│ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
+│ "heredoc" multi-line template syntax.
+
+-----------
