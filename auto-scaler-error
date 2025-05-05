@@ -158,6 +158,25 @@ Initializing modules...
 │
 │ Quoted strings may not be split over multiple lines. To produce a multi-line string, either use the \n escape to represent a newline character or use the
 │ "heredoc" multi-line template syntax.
+
+
+-------
+ Error: Unsupported argument
+│
+│   on modules/cluster-autoscaler/main.tf line 29, in module "cluster_autoscaler_irsa":
+│   29:   attach_policy_json = true
+│
+│ An argument named "attach_policy_json" is not expected here.
+╵
+╷
+│ Error: Unsupported argument
+│
+│   on modules/cluster-autoscaler/main.tf line 30, in module "cluster_autoscaler_irsa":
+│   30:   policy_json        = data.aws_iam_policy_document.cluster_autoscaler.json
+│
+│ An argument named "policy_json" is not expected here.
+
+--------
 ╵
 ╷
 │ Error: Invalid multi-line string
