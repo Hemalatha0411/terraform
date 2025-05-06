@@ -1,0 +1,6 @@
+ Error: waiting for EKS Node Group (zpl-cmm:backend_node) version update (b779aebc-2fdf-3f2a-9111-b3219bf1050c): unexpected state 'Failed', wanted target 'Successful'. last error: ip-10-244-42-214.ec2.internal: PodEvictionFailure: Reached max retries while trying to evict pods from nodes in node group backend_node
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+│
