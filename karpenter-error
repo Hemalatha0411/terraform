@@ -1,0 +1,8 @@
+helm_release.karpenter: Creating...
+╷
+│ Error: could not download chart: public.ecr.aws/karpenter/karpenter/karpenter:0.36.0: not found
+│
+│   with helm_release.karpenter,
+│   on karpenter-helm.tf line 1, in resource "helm_release" "karpenter":
+│    1: resource "helm_release" "karpenter" {
+|
