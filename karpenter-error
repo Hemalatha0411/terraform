@@ -6,3 +6,14 @@ helm_release.karpenter: Creating...
 │   on karpenter-helm.tf line 1, in resource "helm_release" "karpenter":
 │    1: resource "helm_release" "karpenter" {
 |
+
+---------------
+
+helm_release.karpenter: Creating...
+╷
+│ Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
+│
+│   with helm_release.karpenter,
+│   on karpenter-helm.tf line 1, in resource "helm_release" "karpenter":
+│    1: resource "helm_release" "karpenter" {
+│
