@@ -17,3 +17,13 @@ helm_release.karpenter: Creating...
 │   on karpenter-helm.tf line 1, in resource "helm_release" "karpenter":
 │    1: resource "helm_release" "karpenter" {
 │
+
+----------
+
+ Error: API did not recognize GroupVersionKind from manifest (CRD may not be installed)
+│
+│   with kubernetes_manifest.karpenter_provisioner,
+│   on karpenter-provisioner.tf line 1, in resource "kubernetes_manifest" "karpenter_provisioner":
+│    1: resource "kubernetes_manifest" "karpenter_provisioner" {
+│
+│ no matches for kind "Provisioner" in group "karpenter.sh"
