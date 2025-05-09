@@ -93,3 +93,74 @@ Initializing modules...
 │
 │ Each provider has its own distinct configuration schema and provider types, so this module's "kubectl" can be assigned only a configuration for
 │ hashicorp/kubectl, which is not required by module.karpenter.
+------------
+
+Providers required by configuration:
+.
+├── provider[registry.terraform.io/hashicorp/aws] ~> 5.0
+├── provider[registry.terraform.io/hashicorp/kubernetes] ~> 2.23
+├── provider[registry.terraform.io/hashicorp/helm] ~> 2.7
+├── module.angular
+│   └── provider[registry.terraform.io/hashicorp/helm]
+├── module.aurora
+│   ├── provider[registry.terraform.io/hashicorp/aws]
+│   └── module.aurora
+│       └── provider[registry.terraform.io/hashicorp/aws] >= 5.89.0
+├── module.auth-svc
+│   └── provider[registry.terraform.io/hashicorp/helm]
+├── module.karpenter
+│   ├── provider[registry.terraform.io/hashicorp/kubectl]
+│   ├── provider[registry.terraform.io/hashicorp/helm]
+│   ├── provider[registry.terraform.io/hashicorp/aws]
+│   └── module.karpenter
+│       └── provider[registry.terraform.io/hashicorp/aws] >= 5.95.0
+├── module.s3
+│   └── provider[registry.terraform.io/hashicorp/aws]
+├── module.eks
+│   ├── provider[registry.terraform.io/hashicorp/aws]
+│   └── module.eks
+│       ├── provider[registry.terraform.io/hashicorp/time] >= 0.9.0
+│       ├── provider[registry.terraform.io/hashicorp/aws] >= 5.95.0
+│       ├── provider[registry.terraform.io/hashicorp/tls] >= 3.0.0
+│       ├── module.eks_managed_node_group
+│           ├── provider[registry.terraform.io/hashicorp/aws] >= 5.95.0
+│           └── module.user_data
+│               ├── provider[registry.terraform.io/hashicorp/null] >= 3.0.0
+│               └── provider[registry.terraform.io/hashicorp/cloudinit] >= 2.0.0
+│       ├── module.fargate_profile
+│           └── provider[registry.terraform.io/hashicorp/aws] >= 5.95.0
+│       ├── module.kms
+│           └── provider[registry.terraform.io/hashicorp/aws] >= 4.33.0
+│       └── module.self_managed_node_group
+│           ├── provider[registry.terraform.io/hashicorp/aws] >= 5.95.0
+│           └── module.user_data
+│               ├── provider[registry.terraform.io/hashicorp/cloudinit] >= 2.0.0
+│               └── provider[registry.terraform.io/hashicorp/null] >= 3.0.0
+├── module.flask
+│   ├── provider[registry.terraform.io/hashicorp/aws]
+│   ├── provider[registry.terraform.io/hashicorp/kubernetes]
+│   └── provider[registry.terraform.io/hashicorp/helm]
+├── module.gpu
+│   ├── provider[registry.terraform.io/hashicorp/aws]
+│   ├── provider[registry.terraform.io/hashicorp/kubernetes]
+│   └── provider[registry.terraform.io/hashicorp/helm]
+└── module.ingress_controller
+    ├── provider[registry.terraform.io/hashicorp/aws]
+    ├── provider[registry.terraform.io/hashicorp/kubernetes]
+    └── provider[registry.terraform.io/hashicorp/helm]
+
+Providers required by state:
+
+    provider[registry.terraform.io/hashicorp/null]
+
+    provider[registry.terraform.io/hashicorp/time]
+
+    provider[registry.terraform.io/hashicorp/tls]
+
+    provider[registry.terraform.io/hashicorp/aws]
+
+    provider[registry.terraform.io/hashicorp/cloudinit]
+
+    provider[registry.terraform.io/hashicorp/helm]
+
+    provider[registry.terraform.io/hashicorp/kubernetes]
