@@ -200,3 +200,22 @@ Error: Provider configuration not present
 │ module.karpenter.data.aws_ecrpublic_authorization_token.token, after which you can remove the provider configuration again.
 ╵
 ---------------
+ Warning: Reference to undefined provider
+│
+│   on main.tf line 51, in module "karpenter":
+│   51:     aws =  aws.virginia
+│
+│ There is no explicit declaration for local provider name "aws" in module.karpenter, so Terraform is assuming you mean to pass a configuration for
+│ "hashicorp/aws".
+│
+│ If you also control the child module, add a required_providers entry named "aws" with the source address "hashicorp/aws".
+╵
+╷
+│ Error: Provider configuration not present
+│
+│ To work with module.karpenter.data.aws_ecrpublic_authorization_token.token its original provider configuration at
+│ module.karpenter.provider["registry.terraform.io/hashicorp/aws"].virginia is required, but it has been removed. This occurs when a provider configuration
+│ is removed while objects created by that provider still exist in the state. Re-add the provider configuration to destroy
+│ module.karpenter.data.aws_ecrpublic_authorization_token.token, after which you can remove the provider configuration again.
+╵
+-----------
