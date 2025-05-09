@@ -38,3 +38,19 @@ helm_release.karpenter: Creating...
 │ no matches for kind "Provisioner" in group "karpenter.sh"
 ╵
 ----------
+module.karpenter.aws_eks_access_entry.node[0]: Creation complete after 1s [id=zpl-cmm:arn:aws:iam::863518427890:role/Karpenter-zpl-cmm-20250509072644406500000006]
+kubectl_manifest.karpenter_node_pool: Still creating... [30s elapsed]
+╷
+│ Error: karpenter-node-pool failed to run apply: error when creating "/tmp/1903501594kubectl_manifest.yaml": NodePool.karpenter.sh "karpenter-node-pool" is invalid: spec.template.spec.requirements[3].key: Invalid value: "string": label domain "karpenter.k8s.aws" is restricted
+│
+│   with kubectl_manifest.karpenter_node_pool,
+│   on karpenter-manifest.tf line 2, in resource "kubectl_manifest" "karpenter_node_pool":
+│    2: resource "kubectl_manifest" "karpenter_node_pool" {
+
+-----
+
+Events:
+  Type     Reason   Age                   From     Message
+  ----     ------   ----                  ----     -------
+  Normal   Pulled   2m44s (x22 over 85m)  kubelet  Container image "public.ecr.aws/karpenter/controller:1.4.0@sha256:e39215600820529c25a119b95f7431dcc103834766426b2beb48f87fa87555bb" already present on machine
+  Warning  BackOff  2s (x423 over 85m)    kubelet  Back-off restarting failed container controller in pod karpenter-574f656764-4gfrt_kube-system(ebbc97cc-3b1e-4124-9062-091c84d5df8d)
