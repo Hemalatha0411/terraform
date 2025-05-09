@@ -67,3 +67,29 @@ module "karpenter" {
   }
   depends_on = [module.eks]
 }
+-----------
+
+Initializing the backend...
+Initializing modules...
+╷
+│ Warning: Reference to undefined provider
+│
+│   on main.tf line 50, in module "karpenter":
+│   50:     kubectl = kubectl.gavin
+│
+│ There is no explicit declaration for local provider name "kubectl" in module.karpenter, so Terraform is assuming you mean to pass a configuration for
+│ "hashicorp/kubectl".
+│
+│ If you also control the child module, add a required_providers entry named "kubectl" with the source address "hashicorp/kubectl".
+╵
+╷
+│ Error: Provider type mismatch
+│
+│   on main.tf line 50, in module "karpenter":
+│   50:     kubectl = kubectl.gavin
+│
+│ The local name "kubectl.gavin" in the root module represents provider "gavinbunney/kubectl", but "kubectl" in module.karpenter represents
+│ "hashicorp/kubectl".
+│
+│ Each provider has its own distinct configuration schema and provider types, so this module's "kubectl" can be assigned only a configuration for
+│ hashicorp/kubectl, which is not required by module.karpenter.
