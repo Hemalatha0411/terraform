@@ -267,3 +267,14 @@ terraform import 'module.eks.module.eks.module.eks_managed_node_group["frontend_
 
 terraform import 'module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:backend_node
 
+
+-----------
+
+module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]: Import prepared!
+  Prepared aws_eks_node_group for import
+╷
+│ Error: Resource already managed by Terraform
+│
+│ Terraform is already managing a remote object for module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]. To
+│ import to this address you must first remove the existing object from the state.
+╵
