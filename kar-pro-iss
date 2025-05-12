@@ -278,3 +278,12 @@ module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_no
 │ Terraform is already managing a remote object for module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]. To
 │ import to this address you must first remove the existing object from the state.
 ╵
+
+_-----_
+
+# One-liner for bash or sh
+terraform state rm 'module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]' && \
+terraform state rm 'module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0]' && \
+terraform import 'module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:frontend_node && \
+terraform import 'module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:backend_node && \
+terraform plan
