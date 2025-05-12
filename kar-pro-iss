@@ -287,3 +287,19 @@ terraform state rm 'module.eks.module.eks.module.eks_managed_node_group["backend
 terraform import 'module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:frontend_node && \
 terraform import 'module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:backend_node && \
 terraform plan
+
+------------
+ Error: waiting for EKS Node Group (zpl-cmm:backend_node) version update (2c8a99c0-5423-34fe-97b9-c3bacd475dc5): unexpected state 'Failed', wanted target 'Successful'. last error: ip-10-244-41-240.ec2.internal: PodEvictionFailure: Reached max retries while trying to evict pods from nodes in node group backend_node
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+│
+╵
+╷
+│ Error: waiting for EKS Node Group (zpl-cmm:frontend_node) version update (6d264741-38ac-3ce2-af8b-c1cc0c4f9ce2): unexpected state 'Failed', wanted target 'Successful'. last error: ip-10-244-42-115.ec2.internal: PodEvictionFailure: Reached max retries while trying to evict pods from nodes in node group frontend_node
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+│
