@@ -219,3 +219,21 @@ Error: Provider configuration not present
 │ module.karpenter.data.aws_ecrpublic_authorization_token.token, after which you can remove the provider configuration again.
 ╵
 -----------
+
+
+│ Error: waiting for EKS Node Group (zpl-cmm:frontend_node) version update (9c265d3a-d0fd-3102-ba4b-352d55419b30): unexpected state 'Failed', wanted target 'Successful'. last error: ip-10-244-42-115.ec2.internal: PodEvictionFailure: Reached max retries while trying to evict pods from nodes in node group frontend_node
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+│
+╵
+╷
+│ Error: waiting for EKS Node Group (zpl-cmm:backend_node) version update (afc64a76-2742-38ac-94cb-42b89b32a59d): unexpected state 'Failed', wanted target 'Successful'. last error: ip-10-244-41-240.ec2.internal: PodEvictionFailure: Reached max retries while trying to evict pods from nodes in node group backend_node
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+│
+╵
+root@ip-10-244-41-47:/home/ubuntu/zpl-cmm-poc# vi modules/eks/vari
