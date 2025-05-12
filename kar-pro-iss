@@ -259,3 +259,11 @@ terraform apply
 │   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
 │  394: resource "aws_eks_node_group" "this" {
 
+__----------
+
+aws eks describe-nodegroup --cluster-name zpl-cmm --nodegroup-name frontend_node
+
+terraform import 'module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:frontend_node
+
+terraform import 'module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0]' zpl-cmm:backend_node
+
