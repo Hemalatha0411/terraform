@@ -303,3 +303,14 @@ terraform plan
 │   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
 │  394: resource "aws_eks_node_group" "this" {
 │
+
+
+----------
+╷
+│ Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
+│
+│   with module.ingress_controller.helm_release.nginx_ingress,
+│   on modules/ingress-controller/main.tf line 13, in resource "helm_release" "nginx_ingress":
+│   13: resource "helm_release" "nginx_ingress" {
+│
+
