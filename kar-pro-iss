@@ -237,3 +237,9 @@ Error: Provider configuration not present
 │
 ╵
 root@ip-10-244-41-47:/home/ubuntu/zpl-cmm-poc# vi modules/eks/vari
+
+_--------
+
+terraform taint 'module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]'
+terraform apply
+
