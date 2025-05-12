@@ -243,3 +243,19 @@ _--------
 terraform taint 'module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0]'
 terraform apply
 
+----------
+
+│ Error: creating EKS Node Group (zpl-cmm:frontend_node): operation error EKS: CreateNodegroup, https response error StatusCode: 409, RequestID: c340fa39-0500-48ae-a7a3-65d4a886ab77, ResourceInUseException: NodeGroup already exists with name frontend_node and cluster name zpl-cmm
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["frontend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+│
+╵
+╷
+│ Error: creating EKS Node Group (zpl-cmm:backend_node): operation error EKS: CreateNodegroup, https response error StatusCode: 409, RequestID: 030c4850-8fa1-413a-9fe7-638118158a41, ResourceInUseException: NodeGroup already exists with name backend_node and cluster name zpl-cmm
+│
+│   with module.eks.module.eks.module.eks_managed_node_group["backend_nodes"].aws_eks_node_group.this[0],
+│   on .terraform/modules/eks.eks/modules/eks-managed-node-group/main.tf line 394, in resource "aws_eks_node_group" "this":
+│  394: resource "aws_eks_node_group" "this" {
+
