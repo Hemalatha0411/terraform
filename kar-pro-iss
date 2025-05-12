@@ -314,3 +314,10 @@ terraform plan
 │   13: resource "helm_release" "nginx_ingress" {
 │
 
+------------
+ Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
+│
+│   with module.ingress_controller.helm_release.nginx_ingress,
+│   on modules/ingress-controller/main.tf line 13, in resource "helm_release" "nginx_ingress":
+│   13: resource "helm_release" "nginx_ingress" {
+│
