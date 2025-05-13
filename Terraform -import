@@ -1,0 +1,7 @@
+aws iam list-policies --scope Local --query "Policies[?PolicyName=='zpl_cmm_s3_policy'].Arn" --output text
+
+terraform import module.s3.aws_iam_policy.s3_policy arn:aws:iam::123456789012:policy/zpl_cmm_s3_policy
+
+aws rds describe-db-clusters --query "DBClusters[*].DBClusterIdentifier"
+
+terraform import module.aurora.module.aurora.aws_rds_cluster.this[0] zpl-aurora-db
