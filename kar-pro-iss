@@ -321,3 +321,18 @@ terraform plan
 │   on modules/ingress-controller/main.tf line 13, in resource "helm_release" "nginx_ingress":
 │   13: resource "helm_release" "nginx_ingress" {
 │
+-----------
+│ Error: creating IAM Policy (zpl_cmm_s3_policy): operation error IAM: CreatePolicy, https response error StatusCode: 409, RequestID: 7a52a7b8-595e-46ba-ba1e-ff53e9cc7dc9, EntityAlreadyExists: A policy called zpl_cmm_s3_policy already exists. Duplicate names are not allowed.
+│
+│   with module.s3.aws_iam_policy.s3_policy,
+│   on modules/s3/s3.tf line 129, in resource "aws_iam_policy" "s3_policy":
+│  129: resource "aws_iam_policy" "s3_policy" {
+│
+╵
+╷
+│ Error: creating RDS Cluster (zpl-aurora-db): operation error RDS: CreateDBCluster, https response error StatusCode: 400, RequestID: 60f391e7-368a-49a6-86dc-586e3cef1816, DBClusterAlreadyExistsFault: DB Cluster already exists
+│
+│   with module.aurora.module.aurora.aws_rds_cluster.this[0],
+│   on .terraform/modules/aurora.aurora/main.tf line 39, in resource "aws_rds_cluster" "this":
+│   39: resource "aws_rds_cluster" "this" {
+
