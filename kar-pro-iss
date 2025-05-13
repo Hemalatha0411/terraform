@@ -336,3 +336,9 @@ terraform plan
 │   on .terraform/modules/aurora.aurora/main.tf line 39, in resource "aws_rds_cluster" "this":
 │   39: resource "aws_rds_cluster" "this" {
 
+----
+ Error: creating RDS Cluster (zpl-aurora-db) Instance (zpl-aurora-db-0): operation error RDS: CreateDBInstance, https response error StatusCode: 400, RequestID: 744b29ce-b99d-4e24-98fb-c2b8138237f1, DBInstanceAlreadyExists: DB instance already exists
+│
+│   with module.aurora.module.aurora.aws_rds_cluster_instance.this["0"],
+│   on .terraform/modules/aurora.aurora/main.tf line 172, in resource "aws_rds_cluster_instance" "this":
+│  172: resource "aws_rds_cluster_instance" "this" {
