@@ -42,3 +42,17 @@ Initializing modules...
 │ -U root -d zplaurora -p 5432 --set=sslmode=require  -f init_db.sql
 │ ': exit status 1. Output: psql: error: init_db.sql: No such file or directory
 
+---
+module.aurora-table.null_resource.load_csv_to_aurora (local-exec): (output suppressed due to sensitive value in config)
+╷
+│ Error: local-exec provisioner error
+│
+│   with module.aurora-table.null_resource.load_csv_to_aurora,
+│   on modules/aurora-table/main.tf line 11, in resource "null_resource" "load_csv_to_aurora":
+│   11:   provisioner "local-exec" {
+│
+│ Error running command '      export PGPASSWORD="xAFzr]QEIhX?)O0rl#3#J$)CH_3v"
+│ psql -h "zpl-aurora-db.cluster-c14um840u02n.us-east-1.rds.amazonaws.com" -U "root" -d "zplaurora" -p 5432 --set=sslmode=require -c "\copy users(username,
+│ email) FROM 'modules/aurora-table/$path.module}/users.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',');"
+│ ': exit status 1. Output: modules/aurora-table/.module}/users.csv: No such file or directory
+│
