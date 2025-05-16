@@ -18,3 +18,15 @@ Initializing modules...
 │
 │ The equals sign "=" indicates an argument definition, and must not be used when defining a block.
 ╵
+
+------------
+
+│ Error: local-exec provisioner error
+│
+│   with module.aurora-table.null_resource.init_users_table,
+│   on modules/aurora-table/main.tf line 3, in resource "null_resource" "init_users_table":
+│    3:   provisioner "local-exec" {
+│
+│ Error running command '      export PGPASSWORD="xAFzr]QEIhX?)O0rl#3#J$)CH_3v" && psql -h zpl-aurora-db.cluster-c14um840u02n.us-east-1.rds.amazonaws.com
+│ -U root -d zplaurora -p 5432 --set=sslmode=require  -f init_db.sql
+│ ': exit status 127. Output: /bin/sh: 1: psql: not found
