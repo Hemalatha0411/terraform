@@ -1,0 +1,20 @@
+Initializing the backend...
+Initializing modules...
+- aurora-table in modules/aurora-table
+╷
+│ Error: Terraform encountered problems during initialisation, including problems
+│ with the configuration, described below.
+│
+│ The Terraform configuration must be valid before initialization so that
+│ Terraform can determine which modules and providers need to be installed.
+│
+│
+╵
+╷
+│ Error: Invalid block definition
+│
+│   on main.tf line 58, in module "aurora-table":
+│   58:   depends on = [module.aurora]
+│
+│ The equals sign "=" indicates an argument definition, and must not be used when defining a block.
+╵
