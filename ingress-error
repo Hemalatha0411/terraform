@@ -1,0 +1,49 @@
+NAME                                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+grafana                               ClusterIP   172.20.13.10    <none>        80/TCP     21h
+prometheus-alertmanager               ClusterIP   172.20.71.17    <none>        9093/TCP   21h
+prometheus-alertmanager-headless      ClusterIP   None             <none>        9093/TCP   21h
+prometheus-kube-state-metrics         ClusterIP   172.20.14.217   <none>        8080/TCP   21h
+prometheus-prometheus-node-exporter   ClusterIP   172.20.24.15    <none>        9100/TCP   21h
+prometheus-prometheus-pushgateway     ClusterIP   172.20.5.64     <none>        9091/TCP   21h
+prometheus-server                     ClusterIP   172.20.15.42    <none>        80/TCP     21h
+
+------
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: monitoring
+    meta.helm.sh/release-namespace: monitoring
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: kubernetes-prometheus-stack
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /prometheus
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-server   # Change this to your Prometheus service name
+                port:
+                  number: 80
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana  # Change this to your Grafana service name
+                port:
+                  number: 3000
+          - path: /alertmanager
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-alertmanager # Change this to your Alertmanager service name
+                port:
+                  number: 9093
+
