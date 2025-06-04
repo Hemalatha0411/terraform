@@ -1,0 +1,4 @@
+Type     Reason                  Age                  From                Message
+  ----     ------                  ----                 ----                -------
+  Normal   EnsuringLoadBalancer    20s (x7 over 5m41s)  service-controller  Ensuring load balancer
+  Warning  SyncLoadBalancerFailed  19s (x7 over 5m39s)  service-controller  Error syncing load balancer: failed to ensure load balancer: Multiple tagged security groups found for instance i-0a675b8a26d45ea39; ensure only the k8s security group is tagged; the tagged groups were sg-06868d23d7551878b(zpl-cmm-poc-node-20250512120422543300000004) sg-0e28dba405bd2aba5(eks-cluster-sg-zpl-cmm-poc-642665501)
