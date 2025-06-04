@@ -2,3 +2,242 @@ Type     Reason                  Age                  From                Messag
   ----     ------                  ----                 ----                -------
   Normal   EnsuringLoadBalancer    20s (x7 over 5m41s)  service-controller  Ensuring load balancer
   Warning  SyncLoadBalancerFailed  19s (x7 over 5m39s)  service-controller  Error syncing load balancer: failed to ensure load balancer: Multiple tagged security groups found for instance i-0a675b8a26d45ea39; ensure only the k8s security group is tagged; the tagged groups were sg-06868d23d7551878b(zpl-cmm-poc-node-20250512120422543300000004) sg-0e28dba405bd2aba5(eks-cluster-sg-zpl-cmm-poc-642665501)
+
+---------
+
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.36"
+
+  cluster_name    = var.cluster_name
+  cluster_version = var.kubernetes_version
+  subnet_ids      = var.private_subnet_ids
+  vpc_id          = var.vpc_id
+  enable_irsa     = true
+
+  cluster_endpoint_private_access          = true
+  cluster_endpoint_public_access           = false
+  enable_cluster_creator_admin_permissions = true
+  authentication_mode                      = "API_AND_CONFIG_MAP"
+
+  access_entries = {
+    # One access entry with a policy associated
+    eks = {
+      principal_arn = var.iam_user_arn
+
+      policy_associations = {
+        eks = {
+          policy_arn = var.eks_policy_arn
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
+  }
+  cluster_enabled_log_types = [
+    "api",
+    "scheduler",
+    "controllerManager",
+    "audit",
+    "authenticator"
+  ]
+
+  cluster_upgrade_policy = {
+    support_type = "STANDARD"
+  }
+
+  eks_managed_node_groups = {
+    frontend_nodes = {
+      name                   = "frontend_node"
+      use_name_prefix        = false
+      instance_types         = ["t3.large"]
+      ami_type               = "AL2_x86_64"
+      subnet_ids             = var.private_subnet_ids
+      desired_size           = 1
+      min_size               = 1
+      max_size               = 2
+      vpc_security_group_ids = [aws_security_group.eks_nodes.id]
+      update_config = {
+        max_unavailable = 1
+      }
+      drain_pods_on_delete = true
+      labels = {
+        role = "frontend"
+      }
+      tags = {
+        "Name" = "frontend-nodes"
+      }
+     taints = {
+        # This Taint aims to keep just EKS Addons and Karpenter running on this MNG
+        # The pods that do not tolerate this taint should run on nodes created by Karpenter
+        addons = {
+          key    = "CriticalAddonsOnly"
+          value  = "true"
+          effect = "NO_SCHEDULE"
+        },
+      }
+
+    },
+    backend_nodes = {
+      name                   = "backend_node"
+      use_name_prefix        = false
+      instance_types         = ["m4.xlarge"]
+      ami_type               = "AL2_x86_64"
+      subnet_ids             = var.private_subnet_ids
+      desired_size           = 1
+      min_size               = 1
+      max_size               = 5
+      vpc_security_group_ids = [aws_security_group.eks_nodes.id]
+      update_config = {
+        max_unavailable = 1
+      }
+      drain_pods_on_delete = true
+      labels = {
+        role = "backend"
+      }
+      tags = {
+        "Name" = "backend-nodes"
+      }
+      taints = {
+        # This Taint aims to keep just EKS Addons and Karpenter running on this MNG
+        # The pods that do not tolerate this taint should run on nodes created by Karpenter
+        addons = {
+          key    = "CriticalAddonsOnly"
+          value  = "true"
+          effect = "NO_SCHEDULE"
+        },
+      }
+
+    },
+    inference_nodes = {
+      name                   = "inference_node"
+      use_name_prefix        = false
+      instance_types         = ["g4dn.xlarge"]
+      ami_type               = "AL2_x86_64"
+      subnet_ids             = var.private_subnet_ids
+      desired_size           = 0
+      min_size               = 0
+      max_size               = 100
+      vpc_security_group_ids = [aws_security_group.eks_nodes.id]
+       update_config = {
+        max_unavailable = 1
+      }
+      drain_pods_on_delete = true
+
+      labels = {
+        role = "inference"
+      }
+      tags = {
+        "Name" = "inference-nodes"
+      }
+      taints = {
+        # This Taint aims to keep just EKS Addons and Karpenter running on this MNG
+        # The pods that do not tolerate this taint should run on nodes created by Karpenter
+        addons = {
+          key    = "CriticalAddonsOnly"
+          value  = "true"
+          effect = "NO_SCHEDULE"
+        },
+      }
+
+    }
+
+    tags = {
+      cluster     = "zpl-cmm"
+      Enviroment  = "Dev"
+      Application = "zpl-cmm-application"
+      Owner       = "zpl-cmm"
+
+    }
+  }
+  node_security_group_tags = {
+    "karpenter.sh/discovery" = var.cluster_name
+  }
+}
+resource "aws_eks_addon" "vpc_cni" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "vpc-cni"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "coredns" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "coredns"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "kube_proxy" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "kube-proxy"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "metrics_server" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "metrics-server"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "pod_identity_agent" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "eks-pod-identity-agent"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "node_monitoring_agent" {
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = "eks-node-monitoring-agent"
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_security_group" "eks_nodes" {
+  name        = var.eks-nodes-sg
+  description = "Security group for EKS nodes"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
+  }
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 10250
+    to_port     = 10250
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+resource "aws_security_group_rule" "allow_tcp_from_pods_to_eks_cluster" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = ["10.244.41.47/32"]
+  security_group_id = module.eks.cluster_security_group_id
+  description       = "Allow all TCP from  to EKS cluster"
+}
