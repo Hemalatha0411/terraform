@@ -241,3 +241,36 @@ resource "aws_security_group_rule" "allow_tcp_from_pods_to_eks_cluster" {
   security_group_id = module.eks.cluster_security_group_id
   description       = "Allow all TCP from  to EKS cluster"
 }
+
+
+_---------
+
+
+# prometheus-grafana-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monitoring-ingress
+  namespace: monitoring
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /prometheus(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-server
+                port:
+                  number: 80
+          - path: /grafana(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 80
