@@ -1,0 +1,37 @@
+kubectl get svc -n monitoring
+NAME                                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+grafana                               ClusterIP   172.200.13.195    <none>        80/TCP     9d
+prometheus-alertmanager               ClusterIP   172.200.731.127    <none>        9093/TCP   9d
+prometheus-alertmanager-headless      ClusterIP   None             <none>        9093/TCP   9d
+prometheus-kube-state-metrics         ClusterIP   172.200.184.217   <none>        8080/TCP   9d
+prometheus-prometheus-node-exporter   ClusterIP   172.200.24.195    <none>        9100/TCP   9d
+prometheus-prometheus-pushgateway     ClusterIP   172.200.35.64     <none>        9091/TCP   9d
+prometheus-server                     ClusterIP   172.200.130.35    <none>        80/TCP     7d23h
+
+kubectl get ing -n monitoring
+NAME             CLASS   HOSTS   ADDRESS                                                                   PORTS   AGE
+k8s-prometheus   nginx   *       ac179b04319b987294f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com   80      13m
+
+kubectl describe ingress k8s-prometheus -n monitoring
+Name:             k8s-prometheus
+Labels:           app.kubernetes.io/managed-by=Helm
+Namespace:        monitoring
+Address:          ac179b04319b987294f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com
+Ingress Class:    nginx
+Default backend:  <default>
+Rules:
+  Host        Path  Backends
+  ----        ----  --------
+  *
+              /prometheus(/|$)(.*)   prometheus-server:80 (10.244.41.209:9090)
+              /grafana(/|$)(.*)      grafana:80 (10.244.42.202:3000)
+              /alertmanager          prometheus-alertmanager:9093 (10.244.41.96:9093)
+Annotations:  meta.helm.sh/release-name: monitoring
+              meta.helm.sh/release-namespace: monitoring
+              nginx.ingress.kubernetes.io/rewrite-target: /$2
+Events:
+  Type    Reason  Age                From                      Message
+  ----    ------  ----               ----                      -------
+  Normal  Sync    14m (x2 over 14m)  nginx-ingress-controller  Scheduled for sync
+  Normal  Sync    14m (x2 over 14m)  nginx-ingress-controller  Scheduled for sync
+
