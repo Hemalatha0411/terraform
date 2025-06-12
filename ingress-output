@@ -142,3 +142,40 @@ spec:
                 name: prometheus-alertmanager # Change this to your Alertmanager service name
                 port:
                   number: 9093
+
+--------------------------------------
+kubectl logs prometheus-server-6d986b7978-94nml -n monitoring
+Defaulted container "prometheus-server-configmap-reload" out of: prometheus-server-configmap-reload, prometheus-server
+ts=2025-06-04T07:39:37.497492486Z level=info caller=/workspace/cmd/prometheus-config-reloader/main.go:148 msg="Starting prometheus-config-reloader" version="(version=0.83.0, branch=, revision=5cf2f5d)" build_context="(go=go1.24.3, platform=linux/amd64, user=, date=20250530-07:46:40, tags=unknown)"
+ts=2025-06-04T07:39:37.50727007Z level=info caller=/workspace/internal/goruntime/cpu.go:27 msg="Leaving GOMAXPROCS=1: CPU quota undefined"
+level=info ts=2025-06-04T07:39:37.511710755Z caller=reloader.go:282 msg="reloading via HTTP"
+level=info ts=2025-06-04T07:39:37.511783545Z caller=reloader.go:330 msg="started watching config file and directories for changes" cfg= cfgDirs= out= dirs=/etc/config
+ts=2025-06-04T07:39:37.511807709Z level=info caller=/workspace/cmd/prometheus-config-reloader/main.go:202 msg="Starting web server for metrics" listen=0.0.0.0:8080
+ts=2025-06-04T07:39:37.512102674Z level=info caller=/go/pkg/mod/github.com/prometheus/exporter-toolkit@v0.14.0/web/tls_config.go:347 msg="Listening on" address=[::]:8080
+ts=2025-06-04T07:39:37.512128065Z level=info caller=/go/pkg/mod/github.com/prometheus/exporter-toolkit@v0.14.0/web/tls_config.go:350 msg="TLS is disabled." http2=false address=[::]:8080
+level=info ts=2025-06-04T07:42:37.519954286Z caller=reloader.go:548 msg="Reload triggered" cfg_in= cfg_out= cfg_dirs= watched_dirs=/etc/config
+
+
+ kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
+I0612 07:32:11.703282       6 controller.go:190] "Configuration changes detected, backend reload required"
+I0612 07:32:11.764899       6 controller.go:210] "Backend successfully reloaded"
+I0612 07:32:11.766257       6 event.go:364] Event(v1.ObjectReference{Kind:"Pod", Namespace:"ingress-nginx", Name:"ingress-nginx-controller-9f67d98bd-2qcx9", UID:"9e566589-503b-4609-ba65-c3467a24e615", APIVersion:"v1", ResourceVersion:"4138", FieldPath:""}): type: 'Normal' reason: 'RELOAD' NGINX reload triggered due to a change in configuration
+I0612 07:32:47.961047       6 store.go:440] "Found valid IngressClass" ingress="monitoring/monitoring-ingress" ingressclass="nginx"
+I0612 07:32:47.962115       6 event.go:364] Event(v1.ObjectReference{Kind:"Ingress", Namespace:"monitoring", Name:"monitoring-ingress", UID:"7d3fbeb7-caac-4733-a1e8-fc63a9809516", APIVersion:"networking.k8s.io/v1", ResourceVersion:"10525206", FieldPath:""}): type: 'Normal' reason: 'Sync' Scheduled for sync
+I0612 07:32:47.962736       6 controller.go:190] "Configuration changes detected, backend reload required"
+I0612 07:32:48.039533       6 controller.go:210] "Backend successfully reloaded"
+I0612 07:32:48.042001       6 event.go:364] Event(v1.ObjectReference{Kind:"Pod", Namespace:"ingress-nginx", Name:"ingress-nginx-controller-9f67d98bd-2qcx9", UID:"9e566589-503b-4609-ba65-c3467a24e615", APIVersion:"v1", ResourceVersion:"4138", FieldPath:""}): type: 'Normal' reason: 'RELOAD' NGINX reload triggered due to a change in configuration
+I0612 07:32:51.546682       6 status.go:304] "updating Ingress status" namespace="monitoring" ingress="monitoring-ingress" currentValue=null newValue=[{"hostname":"ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"}]
+I0612 07:32:51.555930       6 event.go:364] Event(v1.ObjectReference{Kind:"Ingress", Namespace:"monitoring", Name:"monitoring-ingress", UID:"7d3fbeb7-caac-4733-a1e8-fc63a9809516", APIVersion:"networking.k8s.io/v1", ResourceVersion:"10525230", FieldPath:""}): type: 'Normal' reason: 'Sync' Scheduled for sync
+2025/06/12 07:34:04 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+10.244.42.189 - - [12/Jun/2025:07:34:04 +0000] "GET /prometheus HTTP/1.1" 504 562 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" 569 15.001 [monitoring-prometheus-server-80] [] 10.244.41.209:9090, 10.244.41.209:9090, 10.244.41.209:9090 0, 0, 0 5.000, 5.001, 5.001 504, 504, 504 d500141a1c93d63898aa6f7c3b799101
+2025/06/12 07:34:17 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+2025/06/12 07:34:22 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+2025/06/12 07:34:27 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+10.244.42.189 - - [12/Jun/2025:07:34:27 +0000] "GET /prometheus HTTP/1.1" 504 562 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" 569 15.001 [monitoring-prometheus-server-80] [] 10.244.41.209:9090, 10.244.41.209:9090, 10.244.41.209:9090 0, 0, 0 5.000, 5.001, 5.000 504, 504, 504 fb168f9d03195b2e310f1e9f1bf36af0
+2025/06/12 07:34:55 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+2025/06/12 07:35:00 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+2025/06/12 07:35:05 [error] 1487#1487: *16684722 upstream timed out (110: Operation timed out) while connecting to upstream, client: 10.244.42.189, server: _, request: "GET /prometheus HTTP/1.1", upstream: "http://10.244.41.209:9090/", host: "ac179b04319b94f71921bf2150a897f6-1409830007.us-east-1.elb.amazonaws.com"
+10.244.42.189 - - [12/Jun/2025:07:35:05 +0000] "GET /prometheus HTTP/1.1" 504 562 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" 543 15.000 [monitoring-prometheus-server-80] [] 10.244.41.209:9090, 10.244.41.209:9090, 10.244.41.209:9090 0, 0, 0 5.000, 5.001, 5.000 504, 504, 504 0e0f257546a136d3311325da6fbfff0c
+
+-------------
